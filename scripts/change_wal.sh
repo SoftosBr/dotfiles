@@ -19,3 +19,6 @@ execute_script(){
 execute_script "launch_dunst.sh"
 execute_script "change_kitty_colors.sh"
 execute_script "launch_polybar.sh"
+
+pywalfox update
+

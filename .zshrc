@@ -117,7 +117,7 @@ source $ZSH/oh-my-zsh.sh
 
 (cat $HOME/.cache/wal/sequences &)
 
-setxkbmap -layout br,us -option "grp:win_space_toggle"
+setxkbmap -layout br,us -variant ", intl" -option "grp:win_space_toggle"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

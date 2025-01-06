@@ -195,15 +195,18 @@ mode "resize" {
 }
 
 bindsym Mod1+r mode "resize"
+
+
 bindsym Mod1+Shift+s exec flameshot gui
+# Use Brightnessctl to adjust brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+
 gaps inner 12px
 
 # exec on start up
 exec_always --no-startup-id $HOME/scripts/launch.sh
-#exec_always --no-startup-id $HOME/scripts/launch_polybar.sh &
-#exec_always --no-startup-id $HOME/scripts/launch_dunst.sh &
-#exec --no-startup-id wal -i $(grep "file=" $HOME/.config/nitrogen/bg-saved.cfg | tail -n 1 | cut -d'=' -f2)
-#exec_always --no-startup-id picom &
+exec_always --no-startup-id picom &
 
 default_border pixel 1
 default_floating_border pixel 1

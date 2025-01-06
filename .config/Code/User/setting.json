@@ -1,0 +1,10 @@
+{
+    "editor.fontFamily": "'Fira Code Nerd Font'",
+    "terminal.integrated.fontLigatures": true,
+    "editor.fontLigatures": true,
+    "editor.fontVariations": false,
+    "workbench.colorTheme": "Wal",
+    "glassit.alpha": 200,
+    "walTheme.autoUpdate": true,
+    "window.menuBarVisibility": "toggle"
+}

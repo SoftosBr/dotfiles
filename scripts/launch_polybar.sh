@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-if pgrep -x polybar > /dev/null; then
-  killall polybar
-fi
+killall -q polybar
+while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 
+# Launch Skybar
 for m in $(polybar --list-monitors | cut -d":" -f1); do
     MONITOR=$m polybar --reload skybar &
 done

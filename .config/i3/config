@@ -201,6 +201,9 @@ bindsym Mod1+Shift+s exec flameshot gui
 # Use Brightnessctl to adjust brightness
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+bindsym XF86KbdBrightnessUp exec --no-startup-id $HOME/scripts/keyboard_brightness.sh up
+bindsym XF86KbdBrightnessDown exec --no-startup-id $HOME/scripts/keyboard_brightness.sh down
+
 
 gaps inner 12px
 

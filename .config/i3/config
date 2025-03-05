@@ -208,6 +208,7 @@ bindsym XF86KbdBrightnessDown exec --no-startup-id $HOME/scripts/keyboard_bright
 gaps inner 12px
 
 # exec on start up
+exec_always --no-startup-id $HOME/scripts/setup_monitors.sh
 exec_always --no-startup-id $HOME/scripts/launch.sh
 exec_always --no-startup-id picom &
 

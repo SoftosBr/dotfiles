@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LAPTOP_DISPLAY="eDP-1"
-SECONDARY="HDMI-1-3"
+SECONDARY="HDMI-1-0"
 
 getResolution(){
     monitor=$1

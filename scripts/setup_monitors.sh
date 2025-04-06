@@ -1,7 +1,7 @@
 #!/bin/bash
 
-LAPTOP_DISPLAY="eDP-1"
-SECONDARY="HDMI-1-0"
+Main_Display="DisplayPort-1"
+SECONDARY="HDMI-A-1"
 
 getResolution(){
     monitor=$1
@@ -15,12 +15,12 @@ getRefreshRate(){
     echo "$refresh_rate"
 }
 
-if xrandr | grep "^$LAPTOP_DISPLAY connected" > /dev/null; then
-    RESOLUTION=$(getResolution $LAPTOP_DISPLAY) 
-    REFRESH_RATE=$(getRefreshRate $LAPTOP_DISPLAY)
+if xrandr | grep "^$Main_Display connected" > /dev/null; then
+    RESOLUTION=$(getResolution $Main_Display) 
+    REFRESH_RATE=$(getRefreshRate $Main_Display)
     
     if [ -n "$RESOLUTION" ] && [ -n "$REFRESH_RATE" ]; then
-        xrandr --output $LAPTOP_DISPLAY --mode $RESOLUTION --rate $REFRESH_RATE
+        xrandr --output $Main_Display --mode $RESOLUTION --rate $REFRESH_RATE
     fi
 fi
 
@@ -29,6 +29,6 @@ if xrandr | grep "^$SECONDARY connected" > /dev/null; then
     REFRESH_RATE=$(getRefreshRate $SECONDARY)
 
     if [ -n "$RESOLUTION" ] && [ -n "$REFRESH_RATE" ]; then
-        xrandr --output $SECONDARY --mode $RESOLUTION --rate $REFRESH_RATE --left-of $LAPTOP_DISPLAY
+        xrandr --output $SECONDARY --mode $RESOLUTION --rate $REFRESH_RATE --left-of $Main_Display
     fi
 fi

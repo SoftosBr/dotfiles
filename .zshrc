@@ -121,3 +121,5 @@ setxkbmap -layout br,us -variant ", intl" -option "grp:alt_space_toggle"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+alias toggle-redshift="$HOME/scripts/toggle_redshift.sh"

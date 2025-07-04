@@ -333,3 +333,8 @@
     timeout = 3
     # Icon for notifications with critical urgency, uncomment to enable
     #default_icon = /path/to/icon
+
+[block-elecwhat]
+    appname=elecwhat
+    skip_display=true
+

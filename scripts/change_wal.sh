@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
-wal -q -i $(grep "file=" $HOME/.config/nitrogen/bg-saved.cfg | tail -n 1 | cut -d'=' -f2)
+
+wallpaper=$(grep "file=" $HOME/.config/nitrogen/bg-saved.cfg | tail -n 1 | cut -d'=' -f2)
+wal -q -q "$wallpaper"
 wal-telegram --wal
+
+feh --no-fehbg --bg-scale "$wallpaper"
+
 
 scripts_folder="$HOME/scripts"
 if [ ! -d "$scripts_folder"  ]; then

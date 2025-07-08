@@ -338,7 +338,4 @@
     appname=elecwhat
     skip_display=true
 
-[block-telegram]
-    appname=TelegramDesktop
-    skip_display=true
 

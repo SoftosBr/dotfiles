@@ -1,19 +1,12 @@
 #!/bin/bash 
-
-
-
-
-# Script to enable/disable redshift
-
-
-
   ARG=$1
+  
+  redshift -x
 
   if [[ "$ARG" == "on"  ]]; then
       redshift -O 3750
       echo "Redshift enabled (3750K)"
   elif [[ "$ARG" == "off"  ]]; then
-      redshift -x
       echo "Redshift disabled"
   elif [[ "$ARG" =~ ^[0-9]+$ ]]; then
       redshift -O "$ARG"

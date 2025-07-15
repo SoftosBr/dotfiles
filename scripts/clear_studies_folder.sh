@@ -6,8 +6,6 @@ if [ ! -d "$studies_folder"  ]; then
   exit 1
 fi	
 
-cd "$studies_folder"
-
 if cd "$studies_folder"; then 
   rm -rf *
 fi

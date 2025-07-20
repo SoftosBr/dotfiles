@@ -2,7 +2,7 @@
 
 
 wallpaper=$(grep "file=" $HOME/.config/nitrogen/bg-saved.cfg | tail -n 1 | cut -d'=' -f2)
-wal -q -q "$wallpaper"
+wal -q -i "$wallpaper"
 wal-telegram --wal
 
 feh --no-fehbg --bg-scale "$wallpaper"

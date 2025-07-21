@@ -10,4 +10,7 @@ return {
   ---@module "neo-tree"
   ---@type neotree.Config?
   opts = {},
+  config = function()
+    vim.keymap.set('n', '<C-n>', ':Neotree filesystem toggle left<CR>', {})
+  end
 }

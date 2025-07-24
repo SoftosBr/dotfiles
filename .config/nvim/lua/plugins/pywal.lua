@@ -1,5 +1,5 @@
-return { 
-  'AlphaTechnolog/pywal.nvim', 
+return {
+  'AlphaTechnolog/pywal.nvim',
   as = 'pywal',
   config = function()
     vim.cmd.colorscheme "pywal"

@@ -11,6 +11,13 @@ return {
   ---@type neotree.Config?
   opts = {},
   config = function()
-    vim.keymap.set('n', '<C-n>', ':Neotree filesystem toggle left<CR>', {})
-  end
+    local config = require("nvim-treesitter.configs")
+    config.setup({
+      auto_install = true,
+      highlight = { enable = true },
+      indent = { enable = true },
+    })
+
+    vim.keymap.set("n", "<C-n>", ":Neotree filesystem toggle left<CR>", {})
+  end,
 }

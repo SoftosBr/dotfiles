@@ -1,6 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  branch = 'master',
+  branch = "master",
   lazy = false,
   build = ":TSUpdate",
   config = function()
@@ -9,7 +9,7 @@ return {
       ensure_installed = { "lua", "javascript" },
       highlight = {
         enable = true,
-      }
+      },
     })
-  end
+  end,
 }

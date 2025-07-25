@@ -1,12 +1,12 @@
 return {
   {
     "mason-org/mason.nvim",
-    opts = {}
+    opts = {},
   },
   {
     "mason-org/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = { "lua_ls", "ts_ls" }
+      ensure_installed = { "lua_ls", "ts_ls" },
     },
-  }
+  },
 }

@@ -8,6 +8,7 @@ return {
   },
   lazy = false,
   ---@module "neo-tree"
+  ---@diagnostic disable-next-line: undefined-doc-name
   ---@type neotree.Config?
   opts = {},
   config = function()

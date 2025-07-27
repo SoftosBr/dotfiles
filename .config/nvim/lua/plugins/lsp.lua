@@ -4,6 +4,7 @@ return {
     local lspconfig = require("lspconfig")
     lspconfig.lua_ls.setup({})
     lspconfig.ts_ls.setup({})
+    lspconfig.bashls.setup({})
 
     vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
     vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})

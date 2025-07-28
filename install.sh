@@ -71,7 +71,8 @@ sleep 1 && clear
 
 echo "Organizing dotfiles and configurations..."
 xdg-user-dirs-update
-stow -t "$HOME" scripts
+mkdir "$HOME/scripts"
+stow -t "$HOME/scripts" scripts
 mv "$HOME/.config/i3/config" "$HOME/.config/i3/config.bak"
 stow -t "$HOME/.config" .config --override='.*'
 mv "$HOME/.zshrc" "$HOME/.zshrc_bak"

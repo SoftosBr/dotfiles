@@ -33,7 +33,7 @@ packages_amd_driver="xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulka
 packages_arch="fzf kitty neovim redshift stow htop btop dbus-python flameshot bat neofetch lxappearance npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs nitrogen yazi dolphin flameshot feh vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord clipcat zsh lightdm"
 
 if grep -q "hypervisor" /proc/cpuinfo; then
-  packages_i3=$(echo "$packages_i3" | sed's/picom//g')
+  packages_i3=$(echo "$packages_i3" | sed 's/picom//g')
 fi
 
 if ! command -v yay &>/dev/null; then
@@ -71,12 +71,16 @@ sleep 1 && clear
 
 echo "Organizing dotfiles and configurations..."
 xdg-user-dirs-update
+
 mkdir "$HOME/scripts"
 stow -t "$HOME/scripts" scripts
+
 mv "$HOME/.config/i3/config" "$HOME/.config/i3/config.bak"
 stow -t "$HOME/.config" .config --override='.*'
+
 mv "$HOME/.zshrc" "$HOME/.zshrc_bak"
 ln -s .zshrc "$HOME/.zshrc"
+
 sudo usermod -aG video,input "$USER"
 
 echo "Changing default shell to Zsh..."

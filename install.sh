@@ -71,15 +71,15 @@ sleep 1 && clear
 
 echo "Organizing dotfiles and configurations..."
 xdg-user-dirs-update
-
 mkdir "$HOME/scripts"
-stow -t "$HOME/scripts" scripts
 
-mv "$HOME/.config/i3/config" "$HOME/.config/i3/config.bak"
-stow -t "$HOME/.config" .config --override='.*'
 
-mv "$HOME/.zshrc" "$HOME/.zshrc_bak"
-ln -s .zshrc "$HOME/.zshrc"
+mv "$HOME/.zshrc" "$HOME/.zshrc_bak" 2>dev/null || true
+mv "$HOME/.config/i3/config" "$HOME/.config/i3/config.bak" 2>/dev/null || true
+
+stow -t "$HOME/scripts" -R scripts
+stow -t "$HOME/.config" -R .config
+stow -t "$HOME" -R zsh
 
 sudo usermod -aG video,input "$USER"
 

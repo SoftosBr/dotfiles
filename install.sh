@@ -51,22 +51,22 @@ fi
 
 
 echo "Installing i3 Programs..."
-yay -Syu "${packages_i3}" --needed --noconfirm
+yay -Syu ${packages_i3} --needed --noconfirm
 sleep 1 && clear
 
 
 echo "Installing sound system Programs..."
-yay -Syu "${packages_sound_system}" --needed --noconfirm
+yay -Syu ${packages_sound_system} --needed --noconfirm
 sleep 1 && clear
 
 
 echo "Installing amd_driver Programs..."
-yay -Syu "${packages_amd_driver}" --needed --noconfirm
+yay -Syu ${packages_amd_driver} --needed --noconfirm
 sleep 1 && clear
 
 
 echo "Installing arch Programs..."
-yay -Syu "${packages_arch}" --needed --noconfirm
+yay -Syu ${packages_arch} --needed --noconfirm
 sleep 1 && clear
 
 echo "Organizing dotfiles and configurations..."
@@ -74,6 +74,7 @@ xdg-user-dirs-update
 stow -t "$HOME" scripts
 mv "$HOME/.config/i3/config" "$HOME/.config/i3/config.bak"
 stow -t "$HOME/.config" .config --override='.*'
+mv "$HOME/.zshrc" "$HOME/.zshrc_bak"
 ln -s .zshrc "$HOME/.zshrc"
 sudo usermod -aG video,input "$USER"
 

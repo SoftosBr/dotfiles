@@ -65,10 +65,6 @@ echo "Installing arch Programs..."
 yay -Syu ${packages_arch} --needed --noconfirm
 sleep 1 && clear
 
-echo "Installing and configuring oh-my-zsh and p10k theme"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
-sleep 1 && clear
 
 echo "Organizing dotfiles and configurations..."
 xdg-user-dirs-update
@@ -91,6 +87,13 @@ sleep 1 && clear
 
 
 echo "All done"
+
+
+echo "Installing and configuring oh-my-zsh and p10k theme"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
+sleep 1 && clear
+
 read -r -p "For the changes to take effect properly, a system restart is required. Do you want to restart now? (y/n)" ans
 
 case $ans in

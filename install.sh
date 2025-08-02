@@ -100,6 +100,13 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git "/${ZSH_CUSTOM:-$
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
 sleep 1 && clear
 
+echo "Installing Display Manager..."
+yay -S lightdm lightdm-webkit2-greeter lightdm-webkit2-theme-glorious --needed --noconfirm
+sudo sed -i 's/^#\{0,1\}greeter-session\s*=\s*.*/greeter-session=lightdm-webkit2-greeter/g' /etc/lightdm/lightdm.conf
+sudo sed -i 's/^webkit_theme\s*=\s*\(.*\)/webkit_theme = glorious #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf
+sudo sed -i 's/^debug_mode\s*=\s*\(.*\)/debug_mode = true #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf
+systemctl enable lightdm.service
+
 echo "All done"
 read -r -p "For the changes to take effect properly, a system restart is required. Do you want to restart now? (y/n)" ans
 

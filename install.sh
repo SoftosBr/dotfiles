@@ -28,7 +28,7 @@ handle_cd_error() {
 }
 
 packages_sound_system="alsa-lib alsa-utils pavucontrol mpv pulseaudio pipewire pipewire-pulse"
-packages_i3="dunst picom polybar rofi"
+packages_i3="dunst picom polybar rofi i3-wm i3lock-color xorg-xwininfo xorg-server xorg-xinit xorg-xev"
 packages_amd_driver="xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon"
 packages_arch="fzf kitty neovim redshift stow htop btop dbus-python flameshot bat neofetch lxappearance npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs nitrogen yazi dolphin flameshot feh vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord clipcat zsh lightdm"
 
@@ -65,8 +65,16 @@ echo "Installing arch Programs..."
 yay -Syu ${packages_arch} --needed --noconfirm
 sleep 1 && clear
 
-
 echo "Organizing dotfiles and configurations..."
+
+if [ ! -f "$HOME/.xinitrc" ]; then
+	touch "$HOME/.xinitrc"
+fi
+
+if ! grep -wq "exec i3" "$HOME/.xinitrc"; then
+	echo "exec i3" >>"$HOME/.xinitrc"
+fi
+
 xdg-user-dirs-update
 mkdir "$HOME/scripts"
 
@@ -85,15 +93,14 @@ if ! echo "$SHELL" | grep -q zsh; then
 fi
 sleep 1 && clear
 
-
-echo "All done"
-
-
-echo "Installing and configuring oh-my-zsh and p10k theme"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-#git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
+echo "Installing and configuring oh-my-zsh"
+KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
+git clone https://github.com/zsh-users/zsh-autosuggestions.git "/${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
 sleep 1 && clear
 
+echo "All done"
 read -r -p "For the changes to take effect properly, a system restart is required. Do you want to restart now? (y/n)" ans
 
 case $ans in

@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-wallpaper=$(grep "file=" "$HOME"/.config/nitrogen/bg-saved.cfg | tail -n 1 | cut -d'=' -f2)
+wallpaper=$(grep "^background_image" "$HOME/.config/kitty/kitty.conf" | awk '{print $2}')
 wal -q -i "$wallpaper"
 wal-telegram --wal
 
@@ -25,3 +24,4 @@ execute_script "change_kitty_colors.sh"
 execute_script "launch_polybar.sh"
 
 pywalfox update
+echo "Wallpaper updated"

@@ -84,6 +84,7 @@ mv "$HOME/.config/i3/config" "$HOME/.config/i3/config.bak" 2>/dev/null || true
 stow -t "$HOME/scripts" -R scripts
 stow -t "$HOME/.config" -R .config
 stow -t "$HOME" -R zsh
+stow -t "$HOME" -R Pictures
 
 sudo usermod -aG video,input "$USER"
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-wallpaper=$(grep "^background_image" "$HOME/.config/kitty/kitty.conf" | awk '{print $2}')
+wallpaper=$(grep "^background_image" "$HOME/.config/wal/wal.conf" | awk '{print $2}')
 wal -q -i "$wallpaper"
 wal-telegram --wal
 

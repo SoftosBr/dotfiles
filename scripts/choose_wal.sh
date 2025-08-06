@@ -1,6 +1,6 @@
 #!/bin/bash
 WALLPAPER_DIR="$HOME/dotfiles/Pictures/Wallpapers"
-KITTY_CONF_PATH="$HOME/.config/kitty/kitty.conf"
+WAL_CONF_PATH="$HOME/.config/wal/wal.conf"
 if [ ! -d "$WALLPAPER_DIR" ]; then
   echo "Error: Wallpaper dir not found"
   echo "Please configure the correct directory for the WALLPAPER_DIR variable"
@@ -22,11 +22,15 @@ if [ -z "$SELECTED_WALLPAPER" ]; then
   exit 1
 fi
 
-if ! grep -q "^background_image" "$KITTY_CONF_PATH"; then
-  echo "" >>"$KITTY_CONF_PATH"
-  echo "background_image ${SELECTED_WALLPAPER}" >>"$KITTY_CONF_PATH"
+if [ ! -f "$WAL_CONF_PATH" ]; then
+  touch "$WAL_CONF_PATH"
+fi
+
+if ! grep -q "^background_image" "$WAL_CONF_PATH"; then
+  echo "" >>"$WAL_CONF_PATH"
+  echo "background_image ${SELECTED_WALLPAPER}" >>"$WAL_CONF_PATH"
 else
-  sed -i "s|^background_image.*|background_image ${SELECTED_WALLPAPER}|" "${KITTY_CONF_PATH}"
+  sed -i "s|^background_image.*|background_image ${SELECTED_WALLPAPER}|" "${WAL_CONF_PATH}"
 fi
 
 SCRIPTS_PATH="$HOME/scripts"

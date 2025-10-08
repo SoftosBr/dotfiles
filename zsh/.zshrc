@@ -130,16 +130,11 @@ export NVM_DIR="$HOME/.nvm"
 load-nvmrc() {
   if [ -f .nvmrc ]; then
     nvm use --silent > /dev/null
-  else
-    nvm use default --silent > /dev/null
+  elif [ -f index.ts || -f index.js || -f package.json || -d node_modules ]; then
+     nvm use default --silent > /dev/null
   fi
 }
 
-if [ -n "$ZSH_VERSION" ]; then
-  autoload -U add-zsh-hook
-  add-zsh-hook chpwd load-nvmrc
-elif [ -n "$BASH_VERSION" ]; then
-  cd() { builtin cd "$@" || return; load-nvmrc; }
-fi
-
+autoload -U add-zsh-hook
+add-zsh-hook chpwd load-nvmrc
 load-nvmrc

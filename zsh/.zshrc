@@ -130,7 +130,7 @@ export NVM_DIR="$HOME/.nvm"
 load-nvmrc() {
   if [ -f .nvmrc ]; then
     nvm use --silent > /dev/null
-  elif [ -f index.ts || -f index.js || -f package.json || -d node_modules ]; then
+  elif [[ -f index.ts || -f index.js || -f package.json || -d node_modules ]]; then
      nvm use default --silent > /dev/null
   fi
 }
@@ -138,3 +138,5 @@ load-nvmrc() {
 autoload -U add-zsh-hook
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
+
+alias nvm-default="nvm use default"

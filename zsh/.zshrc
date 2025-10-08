@@ -123,3 +123,23 @@ setxkbmap -layout br,us -variant ", intl" -option "grp:alt_space_toggle"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 alias toggle-redshift="$HOME/scripts/toggle_redshift.sh"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+load-nvmrc() {
+  if [ -f .nvmrc ]; then
+    nvm use --silent > /dev/null
+  else
+    nvm use default --silent > /dev/null
+  fi
+}
+
+if [ -n "$ZSH_VERSION" ]; then
+  autoload -U add-zsh-hook
+  add-zsh-hook chpwd load-nvmrc
+elif [ -n "$BASH_VERSION" ]; then
+  cd() { builtin cd "$@" || return; load-nvmrc; }
+fi
+
+load-nvmrc

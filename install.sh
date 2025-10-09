@@ -30,7 +30,7 @@ handle_cd_error() {
 packages_sound_system="alsa-lib alsa-utils pavucontrol mpv pulseaudio pipewire pipewire-pulse"
 packages_i3="dunst picom polybar rofi i3-wm i3lock-color xorg-xwininfo xorg-server xorg-xinit xorg-xev"
 packages_amd_driver="xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon"
-packages_arch="fzf kitty neovim redshift stow htop btop dbus-python flameshot bat neofetch lxappearance npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin flameshot feh vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord clipcat zsh lightdm"
+packages_arch="fzf kitty neovim redshift stow htop btop dbus-python flameshot bat neofetch lxappearance npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin flameshot feh vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord clipcat zsh lightdm tmux"
 
 if grep -q "hypervisor" /proc/cpuinfo; then
 	packages_i3=$(echo "$packages_i3" | sed 's/picom//g')
@@ -86,6 +86,7 @@ stow -t "$HOME/scripts" -R scripts
 stow -t "$HOME/.config" -R .config
 stow -t "$HOME" -R zsh
 stow -t "$HOME" -R Pictures
+stow -t "$HOME" -R tmux
 
 sudo usermod -aG video,input "$USER"
 
@@ -111,6 +112,9 @@ systemctl enable lightdm.service
 
 echo "Installing NVM..."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+
+echo "Installing TPM"
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo "All done"
 read -r -p "For the changes to take effect properly, a system restart is required. Do you want to restart now? (y/n)" ans

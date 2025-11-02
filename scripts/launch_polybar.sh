@@ -1,12 +1,10 @@
 #!/bin/bash
 
-# Matar qualquer instância anterior da Polybar
-killall polybar
+killall -q polybar 
+while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 
-# Esperar para garantir que o sistema tenha tempo de detectar os monitores
-sleep 1
+CARD=$(brightnessctl | grep backlight | awk '{print $2}' | tr -d "'")
 
-# Iniciar a Polybar para todos os monitores
 for m in $(polybar --list-monitors | cut -d":" -f1); do
-    MONITOR=$m polybar --reload skybar &
+   CARD=$CARD MONITOR=$m polybar --reload skybar &
 done

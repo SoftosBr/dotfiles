@@ -27,10 +27,10 @@ handle_cd_error() {
 	exit 1
 }
 
-packages_sound_system="alsa-lib alsa-utils pavucontrol mpv pulseaudio pipewire pipewire-pulse"
+packages_sound_system="alsa-lib utils pavucontrol mpv pulseaudio pipewire pipewire-pulse"
 packages_i3="dunst picom polybar rofi i3-wm i3lock-color xorg-xwininfo xorg-server xorg-xinit xorg-xev sddm sddm-astronaut-theme"
 packages_amd_driver="xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon"
-packages_arch="fzf kitty neovim redshift stow htop btop dbus-python flameshot bat neofetch lxappearance npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin flameshot feh vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord clipcat zsh lightdm tmux brightnessctl zen-browser-bin remmina freerdp openssh v4l-utils mpv"
+packages_arch="fzf kitty neovim redshift stow htop btop dbus-python flameshot bat neofetch lxappearance npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin flameshot feh vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord clipcat zsh lightdm tmux brightnessctl zen-browser-bin remmina freerdp openssh v4l-utils vesktop"
 
 if grep -q "hypervisor" /proc/cpuinfo; then
 	packages_i3=$(echo "$packages_i3" | sed 's/picom//g')

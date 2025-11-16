@@ -31,7 +31,7 @@ packages_sound_system="alsa-lib alsa-utils pavucontrol mpv pulseaudio pipewire p
 packages_i3="dunst picom polybar rofi i3-wm i3lock-color xorg-xwininfo xorg-server xorg-xinit xorg-xev"
 packages_wm="hyprland xdg-desktop-portal xdg-desktop-portal-hyprland wofi hyprpaper waybar"
 packages_amd_driver="xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon"
-packages_arch="fzf kitty neovim redshift stow htop btop dbus-python bat neofetch lxappearance npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin flameshot feh vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord clipcat zsh tmux"
+packages_arch="fzf kitty neovim redshift stow htop btop dbus-python bat neofetch npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord zsh tmux nwg-bar cliphist wl-clipboard man-db grim slurp"
 
 if grep -q "hypervisor" /proc/cpuinfo; then
 	packages_i3=$(echo "$packages_i3" | sed 's/picom//g')

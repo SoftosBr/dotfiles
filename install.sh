@@ -29,8 +29,9 @@ handle_cd_error() {
 
 packages_sound_system="alsa-lib alsa-utils pavucontrol mpv pulseaudio pipewire pipewire-pulse"
 packages_i3="dunst picom polybar rofi i3-wm i3lock-color xorg-xwininfo xorg-server xorg-xinit xorg-xev"
+packages_wm="hyprland xdg-desktop-portal xdg-desktop-portal-hyprland wofi hyprpaper waybar"
 packages_amd_driver="xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon"
-packages_arch="fzf kitty neovim redshift stow htop btop dbus-python flameshot bat neofetch lxappearance npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin flameshot feh vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord clipcat zsh lightdm tmux"
+packages_arch="fzf kitty neovim redshift stow htop btop dbus-python bat neofetch lxappearance npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin flameshot feh vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord clipcat zsh tmux"
 
 if grep -q "hypervisor" /proc/cpuinfo; then
 	packages_i3=$(echo "$packages_i3" | sed 's/picom//g')
@@ -53,6 +54,10 @@ echo "Installing i3 Programs..."
 yay -Syu ${packages_i3} --needed --noconfirm
 sleep 1 && clear
 
+echo "Installing Hyprland ..."
+yay -Syu ${packages_wm} --needed --noconfirm
+sleep 1 && clear
+
 echo "Installing sound system Programs..."
 yay -Syu ${packages_sound_system} --needed --noconfirm
 sleep 1 && clear
@@ -63,6 +68,7 @@ sleep 1 && clear
 
 echo "Installing arch Programs..."
 yay -Syu ${packages_arch} --needed --noconfirm
+
 
 sleep 1 && clear
 

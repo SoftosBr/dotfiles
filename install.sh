@@ -27,14 +27,10 @@ handle_cd_error() {
 	exit 1
 }
 
-packages_sound_system="alsa-lib alsa-utils pavucontrol mpv pulseaudio pipewire pipewire-pulse"
-packages_i3="dunst picom polybar rofi i3-wm i3lock-color xorg-xwininfo xorg-server xorg-xinit xorg-xev"
+packages_sound_system="pavucontrol mpv pulseaudio pipewire pipewire-pulse"
+packages_wm="sway waybg swayidle swaylock waybar mako wl-clipboard xorg-xwayland xdg-desktop-portal"
 packages_amd_driver="xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon"
-packages_arch="fzf kitty neovim redshift stow htop btop dbus-python flameshot bat neofetch lxappearance npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin flameshot feh vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord clipcat zsh lightdm tmux"
-
-if grep -q "hypervisor" /proc/cpuinfo; then
-	packages_i3=$(echo "$packages_i3" | sed 's/picom//g')
-fi
+packages_arch="fzf kitty neovim redshift stow htop btop dbus-python bat neofetch lxappearance npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin flameshot vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord clipcat zsh tmux"
 
 if ! command -v yay &>/dev/null; then
 	echo "Installing Yay..."
@@ -49,8 +45,8 @@ if ! command -v yay &>/dev/null; then
 	sleep 1 && clear
 fi
 
-echo "Installing i3 Programs..."
-yay -Syu ${packages_i3} --needed --noconfirm
+echo "Installing WM..."
+yay -Syu ${packages_wm} --needed --noconfirm
 sleep 1 && clear
 
 echo "Installing sound system Programs..."
@@ -68,19 +64,11 @@ sleep 1 && clear
 
 echo "Organizing dotfiles and configurations..."
 
-if [ ! -f "$HOME/.xinitrc" ]; then
-	touch "$HOME/.xinitrc"
-fi
-
-if ! grep -wq "exec i3" "$HOME/.xinitrc"; then
-	echo "exec i3" >>"$HOME/.xinitrc"
-fi
-
 xdg-user-dirs-update
 mkdir "$HOME/scripts"
 
 mv "$HOME/.zshrc" "$HOME/.zshrc_bak" 2>dev/null || true
-mv "$HOME/.config/i3/config" "$HOME/.config/i3/config.bak" 2>/dev/null || true
+mv "$HOME/.config/sway/config" "$HOME/.config/sway/config.bak" 2>/dev/null || true
 
 stow -t "$HOME/scripts" -R scripts
 stow -t "$HOME/.config" -R .config
@@ -104,11 +92,8 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM
 sleep 1 && clear
 
 echo "Installing Display Manager..."
-yay -S lightdm lightdm-webkit2-greeter lightdm-webkit2-theme-glorious --needed --noconfirm
-sudo sed -i 's/^#\{0,1\}greeter-session\s*=\s*.*/greeter-session=lightdm-webkit2-greeter/g' /etc/lightdm/lightdm.conf
-sudo sed -i 's/^webkit_theme\s*=\s*\(.*\)/webkit_theme = glorious #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf
-sudo sed -i 's/^debug_mode\s*=\s*\(.*\)/debug_mode = true #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf
-systemctl enable lightdm.service
+yay -S sddm --needed --noconfirm
+systemctl enable sddm.service
 
 echo "Installing NVM..."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash

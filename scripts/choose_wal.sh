@@ -1,6 +1,6 @@
 #!/bin/bash
 WALLPAPER_DIR="$HOME/dotfiles/Pictures/Wallpapers"
-WAL_CONF_PATH="$HOME/.config/wal/wal.conf"
+WAL_CONF_PATH="$HOME/.config/hypr/hyprpaper.conf"
 if [ ! -d "$WALLPAPER_DIR" ]; then
   echo "Error: Wallpaper dir not found"
   echo "Please configure the correct directory for the WALLPAPER_DIR variable"
@@ -26,12 +26,12 @@ if [ ! -f "$WAL_CONF_PATH" ]; then
   touch "$WAL_CONF_PATH"
 fi
 
-if ! grep -q "^background_image" "$WAL_CONF_PATH"; then
-  echo "" >>"$WAL_CONF_PATH"
-  echo "background_image ${SELECTED_WALLPAPER}" >>"$WAL_CONF_PATH"
-else
-  sed -i "s|^background_image.*|background_image ${SELECTED_WALLPAPER}|" "${WAL_CONF_PATH}"
-fi
+# Clean hpyrpaper conf and change wallpaper
+echo " " > "$WAL_CONF_PATH"
+echo "preload = $SELECTED_WALLPAPER" >> "$WAL_CONF_PATH"
+echo "wallpaper = , $SELECTED_WALLPAPER" >> "$WAL_CONF_PATH"
+echo "splash = false" >> "$WAL_CONF_PATH"
+
 
 SCRIPTS_PATH="$HOME/scripts"
 if [ ! -f "$SCRIPTS_PATH/change_wal.sh" ]; then

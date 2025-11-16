@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
-wallpaper=$(grep "^background_image" "$HOME/.config/wal/wal.conf" | awk '{print $2}')
+wallpaper=$(grep "^preload" "$HOME/.config/hypr/hyprpaper.conf" | awk '{print $3}')
 wal -q -i "$wallpaper"
 wal-telegram --wal
-
-feh --no-fehbg --bg-scale "$wallpaper"
 
 scripts_folder="$HOME/scripts"
 if [ ! -d "$scripts_folder" ]; then
@@ -19,9 +17,10 @@ execute_script() {
   fi
 }
 
-execute_script "launch_dunst.sh"
 execute_script "change_kitty_colors.sh"
-execute_script "launch_polybar.sh"
+
+killall hyprpaper
+hyprpaper &
 
 pywalfox update
 echo "Wallpaper updated"

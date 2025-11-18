@@ -27,11 +27,11 @@ handle_cd_error() {
 	exit 1
 }
 
-packages_sound_system="alsa-lib alsa-utils pavucontrol mpv pulseaudio pipewire pipewire-pulse"
+packages_sound_system="pavucontrol mpv pulseaudio pipewire pipewire-pulse"
 packages_i3="dunst picom polybar rofi i3-wm i3lock-color xorg-xwininfo xorg-server xorg-xinit xorg-xev"
 packages_wm="dunst hyprland xdg-desktop-portal xdg-desktop-portal-hyprland rofi hyprpaper waybar"
 packages_amd_driver="xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon"
-packages_arch="fzf kitty neovim redshift stow htop btop dbus-python bat neofetch npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord zsh tmux nwg-bar cliphist wl-clipboard man-db grim slurp"
+packages_arch="fzf kitty neovim redshift stow htop btop dbus-python bat neofetch npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord zsh tmux nwg-bar cliphist wl-clipboard man-db grim slurp vesktop remmina freerdp"
 
 if grep -q "hypervisor" /proc/cpuinfo; then
 	packages_i3=$(echo "$packages_i3" | sed 's/picom//g')
@@ -110,11 +110,9 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM
 sleep 1 && clear
 
 echo "Installing Display Manager..."
-yay -S lightdm lightdm-webkit2-greeter lightdm-webkit2-theme-glorious --needed --noconfirm
-sudo sed -i 's/^#\{0,1\}greeter-session\s*=\s*.*/greeter-session=lightdm-webkit2-greeter/g' /etc/lightdm/lightdm.conf
-sudo sed -i 's/^webkit_theme\s*=\s*\(.*\)/webkit_theme = glorious #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf
-sudo sed -i 's/^debug_mode\s*=\s*\(.*\)/debug_mode = true #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf
-systemctl enable lightdm.service
+yay -S sddm --needed --noconfirm
+ystemctl enable sddm.service
+pulseaudio --start
 
 echo "Installing NVM..."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash

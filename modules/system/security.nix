@@ -1,0 +1,5 @@
+{
+  security = {
+    protectKernelImage = true
+  };
+}

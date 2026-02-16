@@ -28,10 +28,11 @@ fi
 
 # Clean hpyrpaper conf and change wallpaper
 echo " " > "$WAL_CONF_PATH"
-echo "preload = $SELECTED_WALLPAPER" >> "$WAL_CONF_PATH"
-echo "wallpaper = , $SELECTED_WALLPAPER" >> "$WAL_CONF_PATH"
-echo "splash = false" >> "$WAL_CONF_PATH"
-
+echo "wallpaper { " >> "$WAL_CONF_PATH"
+echo "  monitor = " >> "$WAL_CONF_PATH"
+echo "  path = $SELECTED_WALLPAPER " >> "$WAL_CONF_PATH"
+echo "  fit_mode = cover" >> "$WAL_CONF_PATH"
+echo "} " >> "$WAL_CONF_PATH"
 
 SCRIPTS_PATH="$HOME/scripts"
 if [ ! -f "$SCRIPTS_PATH/change_wal.sh" ]; then

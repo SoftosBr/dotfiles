@@ -18,6 +18,7 @@ execute_script() {
 }
 
 execute_script "change_kitty_colors.sh"
+execute_script "launch_dunst.sh"
 
 killall hyprpaper
 hyprpaper &

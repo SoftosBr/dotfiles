@@ -111,7 +111,7 @@ sleep 1 && clear
 
 echo "Installing Display Manager..."
 yay -S sddm --needed --noconfirm
-ystemctl enable sddm.service
+systemctl enable sddm.service
 pulseaudio --start
 
 echo "Installing NVM..."

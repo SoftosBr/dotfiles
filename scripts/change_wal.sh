@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-wallpaper=$(grep "^preload" "$HOME/.config/hypr/hyprpaper.conf" | awk '{print $3}')
-wal -q -i "$wallpaper"
-wal-telegram --wal
+wallpaper=$(grep "path" "$HOME/.config/hypr/hyprpaper.conf" | awk '{print $3}')
+matugen image "$wallpaper"
 
 scripts_folder="$HOME/scripts"
 if [ ! -d "$scripts_folder" ]; then
@@ -17,7 +16,6 @@ execute_script() {
   fi
 }
 
-execute_script "change_kitty_colors.sh"
 execute_script "launch_dunst.sh"
 
 killall hyprpaper

@@ -28,7 +28,6 @@ handle_cd_error() {
 }
 
 packages_sound_system="pavucontrol mpv pulseaudio pipewire pipewire-pulse"
-packages_i3="dunst picom polybar rofi i3-wm i3lock-color xorg-xwininfo xorg-server xorg-xinit xorg-xev"
 packages_wm="dunst hyprland xdg-desktop-portal xdg-desktop-portal-hyprland rofi hyprpaper waybar"
 packages_amd_driver="xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon"
 packages_arch="fzf kitty neovim redshift stow htop btop dbus-python bat neofetch npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord zsh tmux nwg-bar cliphist wl-clipboard man-db grim slurp vesktop remmina freerdp"
@@ -50,10 +49,6 @@ if ! command -v yay &>/dev/null; then
 	sleep 1 && clear
 fi
 
-echo "Installing i3 Programs..."
-yay -Syu ${packages_i3} --needed --noconfirm
-sleep 1 && clear
-
 echo "Installing Hyprland ..."
 yay -Syu ${packages_wm} --needed --noconfirm
 sleep 1 && clear
@@ -74,19 +69,11 @@ sleep 1 && clear
 
 echo "Organizing dotfiles and configurations..."
 
-if [ ! -f "$HOME/.xinitrc" ]; then
-	touch "$HOME/.xinitrc"
-fi
-
-if ! grep -wq "exec i3" "$HOME/.xinitrc"; then
-	echo "exec i3" >>"$HOME/.xinitrc"
-fi
-
 xdg-user-dirs-update
 mkdir "$HOME/scripts"
 
 mv "$HOME/.zshrc" "$HOME/.zshrc_bak" 2>dev/null || true
-mv "$HOME/.config/i3/config" "$HOME/.config/i3/config.bak" 2>/dev/null || true
+mv "$HOME/.config/hypr/colors.conf" "$HOME/.config/hypr/colors.conf.bak" 2>dev/null || true
 
 stow -t "$HOME/scripts" -R scripts
 stow -t "$HOME/.config" -R .config

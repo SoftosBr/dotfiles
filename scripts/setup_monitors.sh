@@ -1,7 +1,8 @@
 #!/bin/bash
 
-Main_Display="DisplayPort-0"
-SECONDARY="HDMI-A-1"
+Main_Display="DP-1"
+
+SECONDARY="HDMI-A-2"
 
 getResolution(){
     monitor=$1

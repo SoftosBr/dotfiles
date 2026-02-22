@@ -22,4 +22,5 @@ killall hyprpaper
 hyprpaper &
 
 pywalfox update
+hyprctl reload
 echo "Wallpaper updated"

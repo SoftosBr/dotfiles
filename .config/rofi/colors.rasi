@@ -1,0 +1,12 @@
+* {
+    background: #0f1417;
+    background-alt: #181c1f;
+    foreground: #dfe3e7;
+    accent: #90cef4;
+    accent-active: #90cef4;
+    border: #8b9297;
+    input-background: #262b2e;
+    input-foreground: #dfe3e7;
+    selected-background: #004c69;
+    selected-foreground: #c4e7ff;
+}

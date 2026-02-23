@@ -1,7 +1,7 @@
 configuration {
 
     /*--------- Configuration ---------*/
-    modes: "drun,window,run";
+    modes: "drun";
     window-format: "{c:14}         {w}";
     drun-display-format: "{name}";
     show-icons: true;

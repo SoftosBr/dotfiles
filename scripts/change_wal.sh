@@ -17,6 +17,7 @@ execute_script() {
 }
 
 execute_script "launch_dunst.sh"
+execute_script "launch_waybar.sh"
 
 killall hyprpaper
 hyprpaper &

@@ -7,7 +7,7 @@
   //"spacing": 4, // Gaps between modules (4px)
   //"margin": 5,
   // Choose the order of the modules
-  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-left": ["hyprland/workspaces"],
   "modules-center": ["clock"],
   "modules-right": ["pulseaudio", "network", "battery", "custom/power"],
   "tray": {
@@ -43,9 +43,10 @@
     "format-wifi": "{essid} ({signalStrength}%) ",
     "format-ethernet": "󰈀",
     "tooltip-format": "",
-    "format-linked": "",
+    "on-click": "nm-connection-editor",
+    "format-linked": "󰈀",
     "format-disconnected": "Disconnected ⚠",
-    "format-alt": "",
+    "format-alt": "{ifname}: {ipaddr}",
   },
   "pulseaudio": {
     // "scroll-step": 1, // %, can be a float
@@ -71,7 +72,7 @@
     "on-click": "nwg-bar"
   },
   "hyprland/workspaces": {
-    "format": "{}",
+    "format": "●",
   },
   "hyprland/window": {
     "separate-outputs": true,

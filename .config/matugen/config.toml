@@ -21,6 +21,10 @@ output_path = '~/.config/kitty/colors-kitty.conf'
 input_path = '~/.config/matugen/templates/rofi.rasi'
 output_path = '~/.config/rofi/colors.rasi'
 
+[templates.waybar]
+input_path = '~/.config/matugen/templates/waybar.css'
+output_path = '~/.config/waybar/colors.css'
+
 [templates.telegram]
 input_path = '~/.config/matugen/templates/telegram.tdesktop-theme'
 output_path = '~/.cache/wal/telegram.tdesktop-theme'

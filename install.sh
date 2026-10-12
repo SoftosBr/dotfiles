@@ -2,35 +2,36 @@
 
 path=$(pwd)
 
-clear
-echo " ░▒▓███████▓▒░░▒▓██████▓▒░░▒▓████████▓▒░▒▓████████▓▒░▒▓██████▓▒░ ░▒▓███████▓▒░ "
-echo "░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        "
-echo "░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        "
-echo " ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓██████▓▒░    ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░  "
-echo "       ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ "
-echo "       ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░  ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ "
-echo "░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓█▓▒░         ░▒▓█▓▒░   ░▒▓██████▓▒░░▒▓███████▓▒░  "
-echo "                          https://github.com/SoftosBr                          "
-echo ""
-echo ""
-echo ""
-echo "Detecting Operating System..."
-sleep 1 && clear
-
-if ! command -v pacman &>/dev/null; then
-	echo "You're not in a base arch system!"
-	exit 1
-fi
-
 handle_cd_error() {
 	echo "Error: Failed to change directory. The directory $1 may not exist "
 	exit 1
 }
 
-packages_sound_system="pavucontrol mpv pulseaudio pipewire pipewire-pulse"
-packages_wm="dunst hyprland xdg-desktop-portal xdg-desktop-portal-hyprland rofi hyprpaper waybar hyprlock hypridle"
-packages_amd_driver="xf86-video-amdgpu mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon"
-packages_arch="fzf kitty neovim redshift stow htop btop dbus-python bat neofetch npm python-pip python-pywal python-pywalfox wal-telegram-git telegram-desktop unzip xdg-user-dirs yazi dolphin vlc ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji noto-fonts ttf-hack-nerd ttf-firacode ttf-firacode-nerd lazygit obsidian discord zsh tmux nwg-bar cliphist wl-clipboard man-db grim slurp vesktop remmina freerdp nvpn network-manager-applet openvpn3 matugen easyeffects zed"
+if (( EUID == 0 )); then
+    echo "Execute como usuário comum com acesso ao sudo, sem sudo ./install.sh." >&2
+    exit 1
+fi
+if ! command -v pacman >/dev/null; then
+    echo "Este instalador requer Arch Linux no WSL." >&2
+    exit 1
+fi
+if ! grep -qi microsoft /proc/sys/kernel/osrelease; then
+    echo "Este instalador deve ser executado dentro do WSL." >&2
+    exit 1
+fi
+if ! command -v sudo >/dev/null; then
+    echo "Instale sudo e conceda acesso ao seu usuário antes de continuar." >&2
+    exit 1
+fi
+
+packages=(
+    base-devel git curl ca-certificates zsh stow unzip zip man-db
+    fzf ripgrep bat htop btop neovim lazygit
+    python python-pip
+    fontconfig ttf-nerd-fonts-symbols noto-fonts-cjk noto-fonts-emoji
+    noto-fonts ttf-hack-nerd ttf-fira-code ttf-firacode-nerd neofetch
+)
+
 
 if ! command -v yay &>/dev/null; then
 	echo "Installing Yay..."
@@ -45,77 +46,25 @@ if ! command -v yay &>/dev/null; then
 	sleep 1 && clear
 fi
 
-echo "Installing Hyprland ..."
-yay -Syu ${packages_wm} --needed --noconfirm
-sleep 1 && clear
+echo "Atualizando o sistema e instalando ferramentas e fontes..."
+yay -Syu --needed --noconfirm "${packages[@]}"
 
-echo "Installing sound system Programs..."
-yay -Syu ${packages_sound_system} --needed --noconfirm
-sleep 1 && clear
-
-echo "Installing amd_driver Programs..."
-yay -Syu ${packages_amd_driver} --needed --noconfirm
-sleep 1 && clear
-
-echo "Installing arch Programs..."
-yay -Syu ${packages_arch} --needed --noconfirm
-
-
-sleep 1 && clear
-
-echo "Organizing dotfiles and configurations..."
-
-xdg-user-dirs-update
-mkdir "$HOME/scripts"
-
+#Bkp
 mv "$HOME/.zshrc" "$HOME/.zshrc_bak" 2>dev/null || true
-mv "$HOME/.config/hypr/colors.conf" "$HOME/.config/hypr/colors.conf.bak" 2>dev/null || true
 
-stow -t "$HOME/scripts" -R scripts
-stow -t "$HOME/.config" -R .config
-stow -t "$HOME" -R zsh
-stow -t "$HOME" -R Pictures
-stow -t "$HOME" -R tmux
-stow -t / -R root
-
-sudo usermod -aG video,input "$USER"
-
-echo "Changing default shell to Zsh..."
-if ! echo "$SHELL" | grep -q zsh; then
-	chsh -s /usr/bin/zsh
-fi
-sleep 1 && clear
+stow -t="$HOME" -R zsh
 
 echo "Installing and configuring oh-my-zsh"
 KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
 git clone https://github.com/zsh-users/zsh-autosuggestions.git "/${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
-sleep 1 && clear
-
-echo "Installing Display Manager..."
-yay -S sddm --needed --noconfirm
-systemctl enable sddm.service
-pulseaudio --start
 
 echo "Installing NVM..."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
 
-echo "Installing TPM"
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if ! echo "$SHELL" | grep -q zsh; then
+	chsh -s /usr/bin/zsh
+fi
 
-echo "All done"
-read -r -p "For the changes to take effect properly, a system restart is required. Do you want to restart now? (y/n)" ans
-
-case $ans in
-"y" | "Y")
-	reboot
-	;;
-"n" | "N")
-	exit 0
-	;;
-*)
-	echo "Invalid answer..."
-	exit 0
-	;;
-esac
+echo "Concluído. Abra uma nova sessão do WSL ou execute: exec zsh"

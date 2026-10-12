@@ -1,9 +1,9 @@
-@define-color wb-bg-left #231917;
-@define-color wb-bg-center #271d1b;
-@define-color wb-bg-right #231917;
-@define-color wb-fg #f1dfdb;
-@define-color wb-muted #d8c2bd;
-@define-color wb-accent #ffb4a4;
-@define-color wb-accent-alt #e7bdb4;
+@define-color wb-bg-left #191c20;
+@define-color wb-bg-center #1d2024;
+@define-color wb-bg-right #191c20;
+@define-color wb-fg #e0e2e8;
+@define-color wb-muted #c2c7cf;
+@define-color wb-accent #9dcbfc;
+@define-color wb-accent-alt #bac8da;
 @define-color wb-urgent #ffb4ab;
-@define-color wb-outline #a08c88;
+@define-color wb-outline #8c9199;

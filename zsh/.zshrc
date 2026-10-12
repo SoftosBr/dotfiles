@@ -137,4 +137,42 @@ autoload -U add-zsh-hook
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
+# Git identity for repositories under paths containing "work".
+# Edit these two values with the identity you want for work projects.
+WORK_GIT_USER_NAME="henrique.zuffo"
+WORK_GIT_USER_EMAIL="hello@netera-tech.com"
+WORK_GIT_PATH_PATTERN="work"
+
+set-work-git-user() {
+  command git rev-parse --is-inside-work-tree &>/dev/null || return 0
+
+  local repo_root
+  repo_root=$(command git rev-parse --show-toplevel 2>/dev/null) || return 0
+
+  if [[ -z "$WORK_GIT_USER_NAME" || -z "$WORK_GIT_USER_EMAIL" || "$WORK_GIT_USER_NAME" == "Seu Nome Work" || "$WORK_GIT_USER_EMAIL" == "seu.email@empresa.com" ]]; then
+    return 0
+  fi
+
+  if [[ "${repo_root:l}" == *"${WORK_GIT_PATH_PATTERN:l}"* ]]; then
+    command git -C "$repo_root" config user.name "$WORK_GIT_USER_NAME"
+    command git -C "$repo_root" config user.email "$WORK_GIT_USER_EMAIL"
+  else
+    local local_user_name local_user_email
+    local_user_name=$(command git -C "$repo_root" config --local --get user.name 2>/dev/null || true)
+    local_user_email=$(command git -C "$repo_root" config --local --get user.email 2>/dev/null || true)
+
+    [[ "$local_user_name" == "$WORK_GIT_USER_NAME" ]] && command git -C "$repo_root" config --local --unset user.name 2>/dev/null
+    [[ "$local_user_email" == "$WORK_GIT_USER_EMAIL" ]] && command git -C "$repo_root" config --local --unset user.email 2>/dev/null
+  fi
+
+  return 0
+}
+
+add-zsh-hook chpwd set-work-git-user
+set-work-git-user
+
 alias nvm-default="nvm use default"
+export PATH="$HOME/.local/bin:$PATH"
+
+# opencode
+export PATH=/home/henrique/.opencode/bin:$PATH
